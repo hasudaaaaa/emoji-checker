@@ -1,6 +1,11 @@
 body {
     font-family: "Inter", sans-serif;
+    
+}
+.layout {
     display: flex;
+    flex-direction: column;
+    gap: 3rem;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -75,6 +80,6 @@ body {
     font-weight: 600;
     color: #2d3748;
 }
-canvas {
+#hiddenCanvas {
     display: none; /* Hidden canvas for pixel manipulation */
 }
