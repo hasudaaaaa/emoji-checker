@@ -5,76 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>カスタム絵文字コントラストチェッカー</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/css\common.css" />
+    <link rel="stylesheet" href="/css/common.css" />
 </head>
 <body>
-<div class="layout bg-gray-100 items-center justify-center min-h-screen p-4">
-<div class="container">
-    <h1 class="text-3xl font-bold text-gray-800 text-center mb-4">カスタム絵文字コントラストチェッカー</h1>
+    <div class="layout bg-gray-100 items-center justify-center min-h-screen p-4">
+    <div class="container">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-4">カスタム絵文字コントラストチェッカー</h1>
 
-    <div class="input-group">
-        <label for="imageUpload" class="text-gray-700 font-medium">画像をアップロード:</label>
-        <input type="file" id="imageUpload" accept="image/*" class="p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-    </div>
-
-    <div class="input-group">
-        <label for="colorPicker" class="text-gray-700 font-medium flex items-center gap-2">背景色を選択:</label>
-        <div class="flex items-center gap-4">
-            <input type="color" id="colorPicker" value="#CCCCCC" class="p-1 border border-gray-300 rounded-md shadow-sm">
-            <span id="hexColorDisplay" class="font-mono text-gray-600">#CCCCCC</span>
+        <div class="input-group">
+            <label for="imageUpload" class="text-gray-700 font-medium">画像をアップロード:</label>
+            <input type="file" id="imageUpload" accept="image/*" class="p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
         </div>
+
+        <div class="input-group">
+            <label for="colorPicker" class="text-gray-700 font-medium flex items-center gap-2">背景色を選択:</label>
+            <div class="flex items-center gap-4">
+                <input type="color" id="colorPicker" value="#CCCCCC" class="p-1 border border-gray-300 rounded-md shadow-sm">
+                <span id="hexColorDisplay" class="font-mono text-gray-600">#CCCCCC</span>
+            </div>
+        </div>
+
+        <div class="preview-area" id="previewArea">
+            <img id="previewImage" src="" alt="プレビュー画像" class="preview-image hidden">
+            <p id="placeholderText" class="text-gray-500">画像をアップロードしてください</p>
+        </div>
+
+        <div class="input-group">
+            <button id="calculateButton" class="bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 shadow-md">
+                コントラストを計算
+            </button>
+        </div>
+
+        <div class="result-box">
+            <p>平均コントラスト比: <span id="averageContrast">N/A</span></p>
+            <p>最低コントラスト比: <span id="minContrast">N/A</span></p>
+            <p>WCAG AA 適合ピクセル割合: <span id="wcagAaRatio">N/A</span></p>
+        </div>
+
+        <canvas id="hiddenCanvas"></canvas>
     </div>
 
-    <div class="preview-area" id="previewArea">
-        <img id="previewImage" src="" alt="プレビュー画像" class="preview-image hidden">
-        <p id="placeholderText" class="text-gray-500">画像をアップロードしてください</p>
+    <article class="container">
+    <section class="mt-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">概要</h2>
+        <p class="text-gray-600">アップロードした画像と選択した背景色のコントラスト比を計算し、WCAGの基準に基づいて評価します。
+            <br>このツールは作成中で、絵文字の可読性を評価する基準については現在検討中です。
+            <br>ここで得た計算結果はあくまでも目安とするにとどめてください。
+        </p>
+    </section>
+    <section class="mt-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">計算結果の説明</h2>
+        <ul class="list-disc list-inside text-gray-600">
+            <li class="pt-4"><strong>平均コントラスト比:</strong> <br>画像の各ピクセルにおけるコントラスト比の平均値を示します。</li>
+            <li class="pt-4"><strong>最低コントラスト比:</strong> <br>画像内で最も低いコントラスト比を示します。</li>
+            <li class="pt-4"><strong>WCAG AA 適合ピクセル割合:</strong> <br>画像内でWCAG AA基準に適合するピクセル、すなわちコントラスト比が 4.5 以上のピクセルの割合を示します。</li>
+        </ul>
+    <section class="mt-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">使い方</h2>
+        <p class="text-gray-600 mb-2">1. 画像をアップロードしてください。</p>
+        <p class="text-gray-600 mb-2">2. 背景色を選択してください。<br>Mattermostにおいては、テーマ色 "Denim", "Sapphire" では #ffffff、"indigo" では #111827、"Onix" では #191b1f になっています。</p>
+        <p class="text-gray-600 mb-2">3. 「コントラストを計算」ボタンをクリックしてください。</p>
+        <p class="text-gray-600">結果が表示されます。</p>
+    </section>
+    <section class="mt-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">注意事項</h2>
+        <p class="text-gray-600 mb-2">- 画像のサイズや解像度によって、計算結果が異なる場合があります。</p>
+        <p class="text-gray-600 mb-2">- コントラスト比は、WCAGの基準に基づいて計算されます。</p>
+    </section>
+    </article>
     </div>
 
-    <div class="input-group">
-        <button id="calculateButton" class="bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 shadow-md">
-            コントラストを計算
-        </button>
-    </div>
-
-    <div class="result-box">
-        <p>平均コントラスト比: <span id="averageContrast">N/A</span></p>
-        <p>最低コントラスト比: <span id="minContrast">N/A</span></p>
-        <p>WCAG AA 適合ピクセル割合: <span id="wcagAaRatio">N/A</span></p>
-    </div>
-
-    <canvas id="hiddenCanvas"></canvas>
-</div>
-
-<article class="container">
-<section class="mt-8">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">概要</h2>
-    <p class="text-gray-600">アップロードした画像と選択した背景色のコントラスト比を計算し、WCAGの基準に基づいて評価します。
-        <br>このツールは作成中で、絵文字の可読性を評価する基準については現在検討中です。
-        <br>ここで得た計算結果はあくまでも目安とするにとどめてください。
-    </p>
-</section>
-<section class="mt-8">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">計算結果の説明</h2>
-    <ul class="list-disc list-inside text-gray-600">
-        <li class="pt-4"><strong>平均コントラスト比:</strong> <br>画像の各ピクセルにおけるコントラスト比の平均値を示します。</li>
-        <li class="pt-4"><strong>最低コントラスト比:</strong> <br>画像内で最も低いコントラスト比を示します。</li>
-        <li class="pt-4"><strong>WCAG AA 適合ピクセル割合:</strong> <br>画像内でWCAG AA基準に適合するピクセル、すなわちコントラスト比が 4.5 以上のピクセルの割合を示します。</li>
-    </ul>
-<section class="mt-8">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">使い方</h2>
-    <p class="text-gray-600 mb-2">1. 画像をアップロードしてください。</p>
-    <p class="text-gray-600 mb-2">2. 背景色を選択してください。<br>Mattermostにおいては、テーマ色 "Denim", "Sapphire" では #ffffff、"indigo" では #111827、"Onix" では #191b1f になっています。</p>
-    <p class="text-gray-600 mb-2">3. 「コントラストを計算」ボタンをクリックしてください。</p>
-    <p class="text-gray-600">結果が表示されます。</p>
-</section>
-<section class="mt-8">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">注意事項</h2>
-    <p class="text-gray-600 mb-2">- 画像のサイズや解像度によって、計算結果が異なる場合があります。</p>
-    <p class="text-gray-600 mb-2">- コントラスト比は、WCAGの基準に基づいて計算されます。</p>
-</section>
-</article>
-</div>
-
-<script src="/javascript\contrast-checking.js"></script>
+    <script src="/javascript/contrast-checking.js"></script>
 </body>
 </html>
